@@ -20,4 +20,10 @@ public class BookRepository {
 		return res;
 	}
 	
+	public static Book getBookById(String id, EntityManager em){
+		Book res = em.createQuery("SELECT b FROM Book b WHERE b.id = :id",Book.class).setParameter("id", Integer.parseInt(id)).getSingleResult();
+		return res;
+		
+	}
+	
 }

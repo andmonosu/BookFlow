@@ -35,7 +35,7 @@
 	 <button type="submit">Buscar</button>
 </form> 
 	<c:forEach items="${requestScope.books}" var="book">	
-		<a href="/BookFlow/DetailsBookServlet?id=${book.id}">
+		<a href="/BookFlow/DetailBookServlet?id=${book.id}">
 			${book.title}
 		</a><br>
 	</c:forEach>

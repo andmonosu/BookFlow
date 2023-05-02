@@ -1,7 +1,6 @@
 package bookflow.servlets;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -10,47 +9,39 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import bookflow.models.Book;
 import bookflow.repository.BookRepository;
 
 /**
- * Servlet implementation class SearchServlet
+ * Servlet implementation class DetailBookServlet
  */
-public class SearchServlet extends HttpServlet {
+public class DetailBookServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-    public SearchServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
+     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String title = request.getParameter("title");
-		
+		String id = request.getParameter("id");
 		EntityManagerFactory emf = (EntityManagerFactory) getServletContext().getAttribute("emf");
 		EntityManager em = emf.createEntityManager();
-		List<Book> bResults;
+		Book bResult;
 		try {
-			bResults = BookRepository.getBookByTitle(title,em);
-			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-			request.setAttribute("books",bResults);
+			RequestDispatcher rd = request.getRequestDispatcher("/details.jsp");
+			bResult = BookRepository.getBookById(id, em);
+			request.setAttribute("book",bResult);
 			rd.forward(request, response);
 			
-		} catch (Exception e) {
-			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+		}catch(Exception e){
+			RequestDispatcher rd = request.getRequestDispatcher("/details.jsp");
 			request.setAttribute("mensaje",
-					"El titulo buscado no existe no existe");
+					"Este libro no existe");
 			rd.forward(request, response);
-		
+			
+			
 		}finally {
 			em.close();
-		
 		}
+		
 	}
+
 
 }
