@@ -1,4 +1,4 @@
-package user;
+package bookflow.models;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,6 +18,7 @@ public class User implements Serializable {
 	@Id @GeneratedValue
 	private long id;
 	
+	@Unique
 	private String username;
 	
 	private String password;
@@ -28,16 +29,12 @@ public class User implements Serializable {
 	
 	private String email;
 
-	@Unique
-	private Long token;
-
-	public User(String username, String password, String direccion, Integer telephone, String email, Long token) {
+	public User(String username, String password, String direccion, Integer telephone, String email) {
 		this.username = username;
 		this.password = password;
 		this.direccion = direccion;
 		this.telephone = telephone;
 		this.email = email;
-		this.token = token;
 	}
 
 	public User() {
@@ -83,12 +80,8 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public Long getToken() {
-		return token;
-	}
-
-	public void setToken(Long token) {
-		this.token = token;
+	public long getId() {
+		return id;
 	}
 
 }

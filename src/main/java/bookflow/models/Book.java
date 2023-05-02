@@ -1,4 +1,4 @@
-package book;
+package bookflow.models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -9,8 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
-import reserve.Reserve;
 
 @Entity
 public class Book implements Serializable {
@@ -29,12 +27,14 @@ public class Book implements Serializable {
 	
 	private Integer pagesNumber;
 	
+	private Integer serialNumber;
+	
 	private Integer numCopy;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST,fetch=FetchType.LAZY)
-	private Reserve books;
+	private  Reserve books;
 
-	public Book(String title, String author, String editorial, LocalDate pubDate, Integer pagesNumber, Integer numCopy) {
+	public Book(String title, String author, String editorial, LocalDate pubDate, Integer pagesNumber, Integer numCopy, Integer serialNumber) {
 		super();
 		this.title = title;
 		this.author = author;
@@ -42,6 +42,7 @@ public class Book implements Serializable {
 		this.pubDate = pubDate;
 		this.pagesNumber = pagesNumber;
 		this.numCopy = numCopy;
+		this.serialNumber = serialNumber;
 	}
 
 	public Book() {
@@ -101,5 +102,17 @@ public class Book implements Serializable {
 
 	public void setNumCopy(Integer numCopy) {
 		this.numCopy = numCopy;
+	}
+
+	public Integer getSerialNumber() {
+		return serialNumber;
+	}
+
+	public Reserve getBooks() {
+		return books;
+	}
+	
+	public void setBooks(Reserve books) {
+		this.books = books;
 	}
 }
