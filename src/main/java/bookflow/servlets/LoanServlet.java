@@ -12,20 +12,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bookflow.models.Book;
+import bookflow.models.Loan;
 import bookflow.models.Reserve;
 import bookflow.models.User;
 import bookflow.repository.BookRepository;
+import bookflow.repository.LoanRepository;
 import bookflow.repository.ReserveRepository;
 import bookflow.repository.UserRepository;
 
-public class ReserveServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+/**
+ * Servlet implementation class LoanServlet
+ */
+public class LoanServlet extends HttpServlet {
+private static final long serialVersionUID = 1L;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EntityManagerFactory emf = (EntityManagerFactory) getServletContext().getAttribute("emf");
 		EntityManager em = emf.createEntityManager();
-		
-		
 		
 		String bookId = request.getParameter("bookId");
 		String userId = request.getSession().getAttribute("userId").toString();
@@ -37,9 +40,9 @@ public class ReserveServlet extends HttpServlet {
 		
 		try {
 			RequestDispatcher rd = request.getRequestDispatcher("/details.jsp");
-			Reserve reserve = ReserveRepository.createReserve(user, book, LocalDate.parse(startDate), LocalDate.parse(endDate), em);
-			request.setAttribute("reserve",
-					reserve);
+			Loan loan = LoanRepository.createLoan(user, book, LocalDate.parse(startDate), LocalDate.parse(endDate), em);
+			request.setAttribute("loan",
+					loan);
 			rd.forward(request, response);
 		}catch (Exception e) {
 			RequestDispatcher rd = request.getRequestDispatcher("/details.jsp");
@@ -52,5 +55,4 @@ public class ReserveServlet extends HttpServlet {
 		
 		
 	}
-
 }

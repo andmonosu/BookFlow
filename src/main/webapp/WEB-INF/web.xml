@@ -77,4 +77,14 @@
     <servlet-name>ReserveServlet</servlet-name>
     <url-pattern>/ReserveServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LoanServlet</display-name>
+    <servlet-name>LoanServlet</servlet-name>
+    <servlet-class>bookflow.servlets.LoanServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoanServlet</servlet-name>
+    <url-pattern>/LoanServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
