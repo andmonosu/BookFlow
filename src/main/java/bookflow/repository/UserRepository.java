@@ -6,8 +6,10 @@ import bookflow.models.User;
 
 public class UserRepository {
 
-	public User getUserByUsername(String username, EntityManager em) {
-		User user = new User();
+	public static User getUserByUsername(String username, EntityManager em) {
+		User user = em.createQuery(
+                "SELECT u FROM User u WHERE u.username = :username", User.class)
+				.setParameter("username", username).getSingleResult();
 		return user;
 	}
 	
