@@ -2,6 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<html>
+    <head>
+        <title>JPA Guest Book Web Application Tutorial</title>
+    </head>
+
+<body>
 <c:if test="${sessionScope.username != null}">
 	<h1>${sessionScope.username}</h1>
 </c:if>
@@ -13,3 +19,27 @@
 <a href="register.jsp">
 	<button>Registrarse</button>
 </a>
+
+<form id="populateForm" action="DBServlet" method="post">
+            <button id="id_searchBtn" type="submit" name="populateBtn">Poblar
+                BD</button>
+        </form>
+
+<c:if test="${requestScope.mensaje != null}">
+		<h1>${requestScope.mensaje}</h1>
+	</c:if>
+
+<form method="post" action="SearchServlet">
+	 <label>Buscar libro por título:</label>
+	 <input type="text" name="title" required><br>
+	 <button type="submit">Buscar</button>
+</form> 
+	<c:forEach items="${requestScope.books}" var="book">	
+		<a href="/BookFlow/DetailBookServlet?id=${book.id}">
+			${book.title}
+		</a><br>
+	</c:forEach>
+	
+	
+	    </body>
+</html>
