@@ -13,3 +13,8 @@
 <a href="register.jsp">
 	<button>Registrarse</button>
 </a>
+
+<form id="populateForm" action="DBServlet" method="post">
+            <button id="id_searchBtn" type="submit" name="populateBtn">Poblar
+                BD</button>
+        </form>
