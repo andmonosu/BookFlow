@@ -77,7 +77,6 @@ public class RegisterServlet extends HttpServlet {
 		if (em.getTransaction().isActive())
 			em.getTransaction().rollback();
 		em.close();
-		emf.close();
 		
 		response.sendRedirect("index.jsp");
      }

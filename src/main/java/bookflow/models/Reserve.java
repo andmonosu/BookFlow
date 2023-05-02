@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Reserve implements Serializable {
@@ -23,6 +24,17 @@ public class Reserve implements Serializable {
 	
 	private LocalDate endDate;
 	
+	@OneToOne(cascade = CascadeType.PERSIST,fetch=FetchType.LAZY)
+	private  Book book;
+	
+	public Book getBook() {
+		return book;
+	}
+
+	public void setBook(Book book) {
+		this.book = book;
+	}
+
 	@ManyToOne(cascade = CascadeType.PERSIST,fetch=FetchType.LAZY)
 	private User reservedUsers;
 
@@ -63,5 +75,13 @@ public class Reserve implements Serializable {
 
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
+	}
+
+	public User getReservedUsers() {
+		return reservedUsers;
+	}
+
+	public void setReservedUsers(User reservedUsers) {
+		this.reservedUsers = reservedUsers;
 	}
 }

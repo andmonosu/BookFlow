@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Book implements Serializable {
@@ -30,9 +31,6 @@ public class Book implements Serializable {
 	private Integer serialNumber;
 	
 	private Integer numCopy;
-	
-	@ManyToOne(cascade = CascadeType.PERSIST,fetch=FetchType.LAZY)
-	private  Reserve books;
 
 	public Book(String title, String author, String editorial, LocalDate pubDate, Integer pagesNumber, Integer numCopy, Integer serialNumber) {
 		super();
@@ -106,13 +104,5 @@ public class Book implements Serializable {
 
 	public Integer getSerialNumber() {
 		return serialNumber;
-	}
-
-	public Reserve getBooks() {
-		return books;
-	}
-	
-	public void setBooks(Reserve books) {
-		this.books = books;
 	}
 }
