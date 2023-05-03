@@ -2,6 +2,7 @@ package bookflow.servlets;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,10 +15,18 @@ public class LogoutServlet extends HttpServlet {
     protected void doPost(
         HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-		request.getSession().removeAttribute("userId");
-		request.getSession().removeAttribute("username");
-		
-		response.sendRedirect("index.jsp");
+		String userId = request.getSession().getAttribute("userId").toString();
+		if(userId!=null&&userId!="") {
+			request.getSession().removeAttribute("userId");
+			request.getSession().removeAttribute("username");
+			
+			response.sendRedirect("index.jsp");
+		}else {
+			RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+			request.setAttribute("mensaje",
+					"Antes de realizar esta acción inicia sesión");
+			rd.forward(request, response);
+		}
      }
 
 }

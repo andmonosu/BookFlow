@@ -45,7 +45,5 @@
 			<p> ${book.title}</p>
 		</a><br>
 	</c:forEach>
-	
-	
 	    </body>
 </html>
