@@ -16,13 +16,14 @@
 <p>${requestScope.book.title}</p>
 </c:if>
 
-<c:if test="${requestScope.reserve != null}">
+<c:if test="${requestScope.reserves != null&&requestScope.areReserves}">
 	<h1>Reservas</h1>
-	<p>Fecha de Inicio:${requestScope.reserve.startDate}</p>
-	<p>Fecha de Fin:${requestScope.reserve.endDate}</p>
+	<c:forEach items="${requestScope.reserves}" var="reserve">	
+		<p>Fecha de Inicio:${reserve.startDate}</p>
+		<p>Fecha de Fin:${reserve.endDate}</p>
+	</c:forEach>
 </c:if>
 
-<c:if test="${requestScope.reserve == null}">
 	<h2>Hacer una reserva</h2>
 	<form action="ReserveServlet" method="post">
 	<input type="hidden" id="bookId" name="bookId" value="${requestScope.book.id}">
@@ -32,15 +33,15 @@
 	  <input type="date" id="endDate" name="endDate">
 	  <input type="submit">
 	</form>
-</c:if>
 
-<c:if test="${requestScope.loan != null}">
+<c:if test="${requestScope.loans != null&&requestScope.areLoans}">
 	<h1>Realizar un préstamo</h1>
-	<p>Fecha de Inicio:${requestScope.loan.startDate}</p>
-	<p>Fecha de Fin:${requestScope.loan.endDate}</p>
+	<c:forEach items="${requestScope.loans}" var="loan">	
+		<p>Fecha de Inicio:${loan.startDate}</p>
+		<p>Fecha de Fin:${loan.endDate}</p>
+	</c:forEach>
 </c:if>
 
-<c:if test="${requestScope.loan == null}">
 	<h2>Realizar un préstamo</h2>
 	<form action="LoanServlet" method="post">
 	  <input type="hidden" id="bookId" name="bookId" value="${requestScope.book.id}">
@@ -51,6 +52,18 @@
 	  <input type="submit">
 	  
 	</form>
+	
+	<form action="CommentServlet" method="post">
+		<input type="hidden" id="bookId" name="bookId" value="${requestScope.book.id}">
+		<textarea name="text"></textarea>
+		<button type="submit">Enviar</button>
+	</form>
+	
+<c:if test="${requestScope.comments != null&&requestScope.areComments}">
+	<h1>Comentarios</h1>
+	<c:forEach items="${requestScope.comments}" var="comment">	
+		<p>${comment.text}</p>
+	</c:forEach>
 </c:if>
 
 	
