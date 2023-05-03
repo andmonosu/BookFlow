@@ -40,21 +40,21 @@ public class RegisterServlet extends HttpServlet {
 						"El teléfono tiene que tener 9 dígitos");
 			}
 			rd.forward(request, response);
+		}else {
+			EntityManagerFactory emf = (EntityManagerFactory) getServletContext().getAttribute("emf");
+			EntityManager em = emf.createEntityManager();
+			em.getTransaction().begin();
+			
+			User usuario = new User(username,password,telephone,email);
+			em.persist(usuario);
+			
+			em.getTransaction().commit();
+			
+			if (em.getTransaction().isActive())
+				em.getTransaction().rollback();
+			em.close();
+			
+			response.sendRedirect("index.jsp");
 		}
-		
-		EntityManagerFactory emf = (EntityManagerFactory) getServletContext().getAttribute("emf");
-		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
-		
-		User usuario = new User(username,password,telephone,email);
-		em.persist(usuario);
-		
-		em.getTransaction().commit();
-		
-		if (em.getTransaction().isActive())
-			em.getTransaction().rollback();
-		em.close();
-		
-		response.sendRedirect("index.jsp");
      }
 }
