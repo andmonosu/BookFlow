@@ -10,20 +10,25 @@
 <body>
 <c:if test="${sessionScope.username != null}">
 	<h1>${sessionScope.username}</h1>
+	<form id="populateForm" action="LogoutServlet" method="post">
+            <button type="submit">Cerrar Sesión</button>
+        </form>
 </c:if>
 
-<a href="login.jsp">
-	<button type="submit">Iniciar Sesión</button>
-</a>
+<c:if test="${sessionScope.username == null}">
+	<a href="login.jsp">
+		<button>Iniciar Sesión</button>
+	</a>
+	
+	<a href="register.jsp">
+		<button>Registrarse</button>
+	</a>
+</c:if>
 
-<a href="register.jsp">
-	<button>Registrarse</button>
-</a>
 
 <form id="populateForm" action="DBServlet" method="post">
-            <button id="id_searchBtn" type="submit" name="populateBtn">Poblar
-                BD</button>
-        </form>
+	<button type="submit" name="populateBtn">Poblar BD</button>
+</form>
 
 <c:if test="${requestScope.mensaje != null}">
 		<h1>${requestScope.mensaje}</h1>

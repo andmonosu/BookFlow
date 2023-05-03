@@ -4,26 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import bookflow.models.Book;
+import bookflow.models.BookModel;
+import bookflow.models.Loan;
 
 public class BookRepository {
 
-	public static List<Book> getBookByTitle(String title, EntityManager em){
+	public static List<Book> getBooksBySerialNumber(Integer serialNumber, EntityManager em){
 		List<Book> books = em.createQuery(
-                "SELECT b FROM Book b", Book.class).getResultList();
-		List<Book> res = new ArrayList<Book>();
-		for(int i=0;i<books.size();i++) {
-			Book book = books.get(i); 
-			if(book.getTitle().toLowerCase().contains(title.toLowerCase())) {
-				res.add(book);
-			}
-		}
-		return res;
+                "SELECT b FROM Book b WHERE b.bookModel.serialNumber = :serialNumber", Book.class).setParameter("serialNumber", serialNumber).getResultList();
+		return books;
 	}
 	
-	public static Book getBookById(String id, EntityManager em){
-		Book res = em.createQuery("SELECT b FROM Book b WHERE b.id = :id",Book.class).setParameter("id", Integer.parseInt(id)).getSingleResult();
-		return res;
-		
+	public static Integer countBooksByModel(Integer serialNumber, EntityManager em) {
+		Integer count = em.createQuery(
+                "SELECT b FROM Book b WHERE b.bookModel.serialNumber = :serialNumber", Book.class).setParameter("serialNumber", serialNumber).getResultList().size();
+		return count;
 	}
 	
+	public static List<Book> getBooksByBookModelWithLoan(Integer serialNumber, EntityManager em) {
+		List<Book> books = em.createQuery("SELECT l.reservedBook FROM Loan l WHERE l.reservedBook.bookModel.serialNumber = :serialNumber",Book.class)
+				.setParameter("serialNumber", serialNumber).getResultList();
+		return books;
+	}
+	
+	public static List<Book> getBooksByBookModelWithReserve(Integer serialNumber, EntityManager em) {
+		List<Book> books = em.createQuery("SELECT r.book FROM Reserve r WHERE r.book.bookModel.serialNumber = :serialNumber",Book.class)
+				.setParameter("serialNumber", serialNumber).getResultList();
+		return books;
+	}
 }

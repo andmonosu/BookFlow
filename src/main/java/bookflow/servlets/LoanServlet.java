@@ -2,6 +2,7 @@ package bookflow.servlets;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -23,14 +24,15 @@ import bookflow.repository.LoanRepository;
 import bookflow.repository.ReserveRepository;
 import bookflow.repository.UserRepository;
 
-public class ReserveServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+/**
+ * Servlet implementation class LoanServlet
+ */
+public class LoanServlet extends HttpServlet {
+private static final long serialVersionUID = 1L;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EntityManagerFactory emf = (EntityManagerFactory) getServletContext().getAttribute("emf");
 		EntityManager em = emf.createEntityManager();
-		
-		
 		
 		String bookId = request.getParameter("bookId");
 		String userId = request.getSession().getAttribute("userId").toString();
@@ -39,22 +41,22 @@ public class ReserveServlet extends HttpServlet {
 		
 		BookModel bookModel = BookModelRepository.getBookById(bookId, em);
 		List<Book> books = BookRepository.getBooksBySerialNumber(bookModel.getSerialNumber(), em);
-		List<Book> booksWithReserve = BookRepository.getBooksByBookModelWithReserve(bookModel.getSerialNumber(), em);
+		List<Book> booksWithLoan = BookRepository.getBooksByBookModelWithLoan(bookModel.getSerialNumber(), em);
 		Book book = null;
-		if (books.size()>=booksWithReserve.size()&&!booksWithReserve.isEmpty()) {
+		if (books.size()>=booksWithLoan.size()&&!booksWithLoan.isEmpty()) {
 			for(int i=0;i<books.size();i++) {
 				book = books.get(i);
-				if(!booksWithReserve.contains(book)) {
+				if(!booksWithLoan.contains(book)) {
 					break;
 				}
 			}
-		}else if(booksWithReserve.isEmpty()) {
+		}else if(booksWithLoan.isEmpty()) {
 			book = books.get(0);
 		}
 		User user = UserRepository.getUserById(userId, em);
 		
-		try {;
-			ReserveRepository.createReserve(user, book, LocalDate.parse(startDate), LocalDate.parse(endDate), em);
+		try {
+			LoanRepository.createLoan(user, book, LocalDate.now(), LocalDate.parse(endDate), em);
 			response.sendRedirect("/BookFlow/DetailBookServlet?id="+bookId);
 		}catch (Exception e) {
 			RequestDispatcher rd = request.getRequestDispatcher("/details.jsp");
@@ -67,5 +69,4 @@ public class ReserveServlet extends HttpServlet {
 		
 		
 	}
-
 }
