@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import bookflow.models.Book;
+import bookflow.models.BookModel;
+import bookflow.repository.BookModelRepository;
 import bookflow.repository.BookRepository;
 
 public class SearchServlet extends HttpServlet {
@@ -21,9 +23,9 @@ public class SearchServlet extends HttpServlet {
 		
 		EntityManagerFactory emf = (EntityManagerFactory) getServletContext().getAttribute("emf");
 		EntityManager em = emf.createEntityManager();
-		List<Book> bResults;
+		List<BookModel> bResults;
 		try {
-			bResults = BookRepository.getBookByTitle(title,em);
+			bResults = BookModelRepository.getBookByTitle(title,em);
 			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 			request.setAttribute("books",bResults);
 			rd.forward(request, response);

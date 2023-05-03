@@ -2,6 +2,7 @@ package bookflow.servlets;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,9 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bookflow.models.Book;
+import bookflow.models.BookModel;
+import bookflow.models.Loan;
 import bookflow.models.Reserve;
 import bookflow.models.User;
+import bookflow.repository.BookModelRepository;
 import bookflow.repository.BookRepository;
+import bookflow.repository.LoanRepository;
 import bookflow.repository.ReserveRepository;
 import bookflow.repository.UserRepository;
 
@@ -32,15 +37,25 @@ public class ReserveServlet extends HttpServlet {
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		
-		Book book = BookRepository.getBookById(bookId, em);
+		BookModel bookModel = BookModelRepository.getBookById(bookId, em);
+		List<Book> books = BookRepository.getBooksBySerialNumber(bookModel.getSerialNumber(), em);
+		List<Book> booksWithReserve = BookRepository.getBooksByBookModelWithReserve(bookModel.getSerialNumber(), em);
+		Book book = null;
+		if (books.size()>=booksWithReserve.size()&&!booksWithReserve.isEmpty()) {
+			for(int i=0;i<books.size();i++) {
+				book = books.get(i);
+				if(!booksWithReserve.contains(book)) {
+					break;
+				}
+			}
+		}else if(booksWithReserve.isEmpty()) {
+			book = books.get(0);
+		}
 		User user = UserRepository.getUserById(userId, em);
 		
-		try {
-			RequestDispatcher rd = request.getRequestDispatcher("/details.jsp");
-			Reserve reserve = ReserveRepository.createReserve(user, book, LocalDate.parse(startDate), LocalDate.parse(endDate), em);
-			request.setAttribute("reserve",
-					reserve);
-			rd.forward(request, response);
+		try {;
+			ReserveRepository.createReserve(user, book, LocalDate.parse(startDate), LocalDate.parse(endDate), em);
+			response.sendRedirect("/BookFlow/DetailBookServlet?id="+bookId);
 		}catch (Exception e) {
 			RequestDispatcher rd = request.getRequestDispatcher("/details.jsp");
 			request.setAttribute("mensaje",
