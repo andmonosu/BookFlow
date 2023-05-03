@@ -65,11 +65,15 @@
 	 <input type="text" name="title" required><br>
 	 <button class="btn btn-outline-success" type="submit">Buscar</button>
 </form> 
-	<c:forEach items="${requestScope.books}" var="book">	
-		<a href="/BookFlow/DetailBookServlet?id=${book.id}">
-			<img alt="" src="${book.urlImage}"> 
-			<p> ${book.title}</p>
-		</a><br>
-	</c:forEach>
+	<div class="card_container">
+			<c:forEach items="${requestScope.books}" var="book">
+				<div class="card">
+				<a href="/BookFlow/DetailBookServlet?id=${book.id}">
+					<img class="card_image" alt="" src="${book.urlImage}"> 
+				</a><br>
+				<p> ${book.title}</p>
+				</div>
+			</c:forEach>
+	</div>
 	    </body>
 </html>
