@@ -55,9 +55,6 @@ public class DBRepository {
 					,LocalDate.of(2019,10,24),192,1338,"https://www.penguinlibros.com/es/2234179-large_default/sherlock-holmes-1-estudio-en-escarlata.jpg");
 			em.persist(b9);
 			
-			em.getTransaction().commit();
-			
-			em.getTransaction().begin();
 			Book book1 = new Book(93724);
 			book1.setBookModel(b1);
 			em.persist(book1);
