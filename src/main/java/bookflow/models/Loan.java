@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import bookflow.util.State;
 
@@ -23,25 +24,21 @@ public class Loan implements Serializable {
 	
 	private LocalDate endDate;
 	
-	private Integer amount;
-	
 	private State state;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST,fetch=FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.PERSIST,fetch=FetchType.LAZY)
 	private Book reservedBook;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST,fetch=FetchType.LAZY)
 	private User user;
 	
-	
-	
-	public Loan(LocalDate startDate, LocalDate endDate, Integer amount, State state) {
+	public Loan(LocalDate startDate, LocalDate endDate, State state) {
 		super();
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.amount = amount;
 		this.state = state;
 	}
+	
 	
 	public Long getId() {
 		return id;
@@ -67,20 +64,32 @@ public class Loan implements Serializable {
 		this.endDate = endDate;
 	}
 
-	public Integer getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Integer amount) {
-		this.amount = amount;
-	}
-
 	public State getState() {
 		return state;
 	}
 
 	public void setState(State state) {
 		this.state = state;
+	}
+
+
+	public Book getReservedBook() {
+		return reservedBook;
+	}
+
+
+	public void setReservedBook(Book reservedBook) {
+		this.reservedBook = reservedBook;
+	}
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

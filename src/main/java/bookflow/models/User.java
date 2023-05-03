@@ -23,16 +23,13 @@ public class User implements Serializable {
 	
 	private String password;
 	
-	private String direccion;
-	
 	private Integer telephone;
 	
 	private String email;
 
-	public User(String username, String password, String direccion, Integer telephone, String email) {
+	public User(String username, String password, Integer telephone, String email) {
 		this.username = username;
 		this.password = password;
-		this.direccion = direccion;
 		this.telephone = telephone;
 		this.email = email;
 	}
@@ -54,14 +51,6 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
 	}
 
 	public Integer getTelephone() {

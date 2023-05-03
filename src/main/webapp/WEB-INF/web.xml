@@ -67,4 +67,34 @@
     <servlet-name>DetailBookServlet</servlet-name>
     <url-pattern>/DetailBookServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ReserveServlet</display-name>
+    <servlet-name>ReserveServlet</servlet-name>
+    <servlet-class>bookflow.servlets.ReserveServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReserveServlet</servlet-name>
+    <url-pattern>/ReserveServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LoanServlet</display-name>
+    <servlet-name>LoanServlet</servlet-name>
+    <servlet-class>bookflow.servlets.LoanServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoanServlet</servlet-name>
+    <url-pattern>/LoanServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CommentServlet</display-name>
+    <servlet-name>CommentServlet</servlet-name>
+    <servlet-class>bookflow.servlets.CommentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CommentServlet</servlet-name>
+    <url-pattern>/CommentServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

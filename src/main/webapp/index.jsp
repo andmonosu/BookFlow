@@ -4,42 +4,76 @@
 
 <html>
     <head>
-        <title>JPA Guest Book Web Application Tutorial</title>
+    <style><%@include file="./css/style_index.css"%></style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+        <title>Bookflow</title>
     </head>
 
-<body>
-<c:if test="${sessionScope.username != null}">
-	<h1>${sessionScope.username}</h1>
-</c:if>
+<body class="body">
 
-<a href="login.jsp">
-	<button type="submit">Iniciar Sesión</button>
-</a>
+<header class="header">
+	<nav class="navbar bg-body-tertiary">
+		<div class="header_logo">
+		<img class="image_logo" src="./img/logo.png" alt="Logo">
+		</div>
 
-<a href="register.jsp">
-	<button>Registrarse</button>
-</a>
+		<div class="header_content">
+		<c:if test="${sessionScope.username != null}">
+				<div class="profile-content">
+					<div>
+						<img class="profile_logo" src="./img/profile.png" alt="Logo">
+					</div>
+				    <p>${sessionScope.username}</p>
+				</div>
+				<form id="populateForm" action="LogoutServlet" method="post">
+				      <button class="btn btn-outline-danger type="submit">Cerrar Sesión</button>
+				</form>
+				<form id="populateForm" action="DBServlet" method="post">
+		            	<button class="btn btn-secondary" id="id_searchBtn" type="submit" name="populateBtn">Poblar DB	
+		               	</button>
+		        </form>
+				
+				  
+				
+		</c:if>
 
-<form id="populateForm" action="DBServlet" method="post">
-            <button id="id_searchBtn" type="submit" name="populateBtn">Poblar
-                BD</button>
-        </form>
+		<c:if test="${sessionScope.username == null}">
+		    <a href="login.jsp">
+		        <button class="btn btn-outline-primary" id="login_button">Iniciar Sesión</button>
+		    </a>
+		
+		    <a href="register.jsp">
+		        <button class="btn btn-outline-success" id="register_button">Registrarse</button>
+		    </a>
+		    <form id="populateForm" action="DBServlet" method="post">
+		            <button class="btn btn-secondary" id="id_searchBtn" type="submit" name="populateBtn">Poblar
+		                BD</button>
+		    </form>
+		</c:if>
+				
+		
+		<c:if test="${requestScope.mensaje != null}">
+				<h1>${requestScope.mensaje}</h1>
+		</c:if>
+			</div>
+	</nav>
+</header>
+<form class="index_form" method="post" action="SearchServlet">
 
-<c:if test="${requestScope.mensaje != null}">
-		<h1>${requestScope.mensaje}</h1>
-	</c:if>
-
-<form method="post" action="SearchServlet">
+	<img class="image_logo" src="./img/libro.png" alt="Logo">	
 	 <label>Buscar libro por título:</label>
 	 <input type="text" name="title" required><br>
-	 <button type="submit">Buscar</button>
+	 <button class="btn btn-outline-success" type="submit">Buscar</button>
 </form> 
-	<c:forEach items="${requestScope.books}" var="book">	
-		<a href="/BookFlow/DetailBookServlet?id=${book.id}">
-			${book.title}
-		</a><br>
-	</c:forEach>
-	
-	
+	<div class="card_container">
+			<c:forEach items="${requestScope.books}" var="book">
+				<div class="card">
+				<a href="/BookFlow/DetailBookServlet?id=${book.id}">
+					<img class="card_image" alt="" src="${book.urlImage}"> 
+				</a><br>
+				<p> ${book.title}</p>
+				</div>
+			</c:forEach>
+	</div>
 	    </body>
 </html>

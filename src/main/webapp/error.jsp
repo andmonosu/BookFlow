@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-Confirmao
+	<c:if test="${requestScope.mensaje != null}">
+		<h1>${requestScope.mensaje}</h1>
+	</c:if>
 </body>
 </html>

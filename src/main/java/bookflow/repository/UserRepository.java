@@ -13,4 +13,11 @@ public class UserRepository {
 		return user;
 	}
 	
+	public static User getUserById(String id, EntityManager em) {
+		User user = em.createQuery(
+                "SELECT u FROM User u WHERE u.id = :id", User.class)
+				.setParameter("id", Integer.parseInt(id)).getSingleResult();
+		return user;
+	}
+	
 }
