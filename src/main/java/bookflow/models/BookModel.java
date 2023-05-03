@@ -31,9 +31,11 @@ public class BookModel implements Serializable {
 	private Integer serialNumber;
 	
 	private String urlImage;
+	
+	private String sinopsis;
 
 	public BookModel(String title, String author, String editorial, LocalDate pubDate, Integer pagesNumber,
-			Integer serialNumber, String urlImage) {
+			Integer serialNumber, String urlImage, String sinopsis) {
 		super();
 		this.title = title;
 		this.author = author;
@@ -42,8 +44,9 @@ public class BookModel implements Serializable {
 		this.pagesNumber = pagesNumber;
 		this.serialNumber = serialNumber;
 		this.urlImage = urlImage;
+		this.sinopsis = sinopsis;
 	}
-
+	
 	public BookModel() {
 	}
 
@@ -105,5 +108,13 @@ public class BookModel implements Serializable {
 
 	public void setUrlImage(String urlImage) {
 		this.urlImage = urlImage;
+	}
+	
+	public String getSinopsis() {
+		return sinopsis;
+	}
+
+	public void setSinopsis(String sinopsis) {
+		this.sinopsis = sinopsis;
 	}
 }

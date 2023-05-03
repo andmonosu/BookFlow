@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -43,7 +44,7 @@ private static final long serialVersionUID = 1L;
 			List<Book> books = BookRepository.getBooksBySerialNumber(bookModel.getSerialNumber(), em);
 			List<Book> booksWithLoan = BookRepository.getBooksByBookModelWithLoan(bookModel.getSerialNumber(), em);
 			Book book = null;
-			if (books.size()>=booksWithLoan.size()&&!booksWithLoan.isEmpty()) {
+			if (books.size()>booksWithLoan.size()&&!booksWithLoan.isEmpty()) {
 				for(int i=0;i<books.size();i++) {
 					book = books.get(i);
 					if(!booksWithLoan.contains(book)) {
@@ -52,6 +53,10 @@ private static final long serialVersionUID = 1L;
 				}
 			}else if(booksWithLoan.isEmpty()) {
 				book = books.get(0);
+			}else if(books.size()<=booksWithLoan.size()) {
+				Random r = new Random();
+				int i = r.nextInt(books.size());
+				book = books.get(i);
 			}
 			User user = UserRepository.getUserById(userId, em);
 			

@@ -15,53 +15,33 @@ import javax.servlet.http.HttpServletResponse;
 
 import bookflow.models.Book;
 import bookflow.models.BookModel;
-import bookflow.models.Loan;
-import bookflow.models.Reserve;
+import bookflow.models.Comment;
 import bookflow.models.User;
 import bookflow.repository.BookModelRepository;
 import bookflow.repository.BookRepository;
+import bookflow.repository.CommentRepository;
 import bookflow.repository.LoanRepository;
-import bookflow.repository.ReserveRepository;
 import bookflow.repository.UserRepository;
 
-public class ReserveServlet extends HttpServlet {
+public class CommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+      
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				
+		
 		String bookId = request.getParameter("bookId");
 		String userId = request.getSession().getAttribute("userId").toString();
-		String startDate = request.getParameter("startDate");
-		String endDate = request.getParameter("endDate");
+		String text = request.getParameter("text");
 		
 		if(userId!=null&&userId!="") {
 			EntityManagerFactory emf = (EntityManagerFactory) getServletContext().getAttribute("emf");
 			EntityManager em = emf.createEntityManager();
 			BookModel bookModel = BookModelRepository.getBookById(bookId, em);
-			List<Book> books = BookRepository.getBooksBySerialNumber(bookModel.getSerialNumber(), em);
-			List<Book> booksWithReserve = BookRepository.getBooksByBookModelWithReserve(bookModel.getSerialNumber(), em);
-			Book book = null;
-			if (books.size()>=booksWithReserve.size()&&!booksWithReserve.isEmpty()) {
-				for(int i=0;i<books.size();i++) {
-					book = books.get(i);
-					if(!booksWithReserve.contains(book)) {
-						break;
-					}
-				}
-			}else if(booksWithReserve.isEmpty()) {
-				book = books.get(0);
-			}else if(books.size()<=booksWithReserve.size()) {
-				Random r = new Random();
-				int i = r.nextInt(books.size());
-				book = books.get(i);
-			}
 			User user = UserRepository.getUserById(userId, em);
-			
-			try {;
-				ReserveRepository.createReserve(user, book, LocalDate.parse(startDate), LocalDate.parse(endDate), em);
+			try {
+				CommentRepository.createComment(user, bookModel, text, em);
 				response.sendRedirect("/BookFlow/DetailBookServlet?id="+bookId);
 			}catch (Exception e) {
-				RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/details.jsp");
 				request.setAttribute("mensaje",
 						"Este libro no existe");
 				rd.forward(request, response);
@@ -73,9 +53,7 @@ public class ReserveServlet extends HttpServlet {
 			request.setAttribute("mensaje",
 					"Antes de realizar esta acción inicia sesión");
 			rd.forward(request, response);
-			
 		}
-		
 	}
 
 }
