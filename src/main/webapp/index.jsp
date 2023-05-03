@@ -67,10 +67,9 @@
 </form> 
 	<c:forEach items="${requestScope.books}" var="book">	
 		<a href="/BookFlow/DetailBookServlet?id=${book.id}">
-			${book.title}
+			<img alt="" src="${book.urlImage}"> 
+			<p> ${book.title}</p>
 		</a><br>
 	</c:forEach>
-	
-	
 	    </body>
 </html>
