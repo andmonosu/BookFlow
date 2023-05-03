@@ -1,0 +1,24 @@
+@charset "ISO-8859-1";
+
+.body{
+	background-color: #FFF8DE
+}
+.image_register{
+	max-width: 90px;
+	max-height: 100%;
+	margin-bottom: 10px;
+}
+.resgister_form{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	min-height: 100vh;
+}
+
+.mb-2{
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 0;
+	}
+
