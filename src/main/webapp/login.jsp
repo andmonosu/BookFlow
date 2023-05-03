@@ -7,20 +7,34 @@
 
 <html>
     <head>
-        <title>JPA Guest Book Web Application Tutorial</title>
+        <style><%@include file="./css/style_login.css"%></style>
+    	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+        <title>BookFlow-Login</title>
     </head>
     
-    <c:if test="${requestScope.mensaje != null}">
-		<h1>${requestScope.mensaje}</h1>
+    
+    
+    <body class="body">
+     <c:if test="${requestScope.mensaje != null}">
+     	<div class="alert alert-danger" role="alert">
+		 	${requestScope.mensaje}
+		</div>
 	</c:if>
     
-    <body>
-    <form method="post" action="LoginServlet">
-	  <label>Nombre de usuario:</label>
-	  <input type="text" name="user" required><br>
-	  <label>Contraseña:</label>
-	  <input type="password" name="password" required><br>
-	  <button type="submit">Iniciar Sesión</button>
+    <form class="login_form" method="post" action="LoginServlet">
+    	<div class="register_logo">
+			<img class="image_register" src="./img/hombre.png" alt="Logo">
+		</div>
+    	<div class="mb-2">
+		     <label>Nombre de usuario:</label>
+	  		<input type="text" name="user" required><br>
+	  	</div>
+	  	<div class="mb-2">
+		     <label>Contraseña:</label>
+	  		<input type="password" name="password" required><br>
+	  	</div>
+	  <button class="btn btn-outline-primary" type="submit">Iniciar Sesión</button>
+	 
 	</form> 
     </body>
 </html>
