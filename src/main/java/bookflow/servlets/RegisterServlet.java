@@ -53,7 +53,7 @@ public class RegisterServlet extends HttpServlet {
 				response.sendRedirect("index.jsp");
 			}
 		} catch (Exception e) {
-			RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/register.jsp");
 			request.setAttribute("mensaje",
 					"El nombre de usuario ya está elegido");
 			rd.forward(request, response);
