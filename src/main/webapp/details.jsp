@@ -75,39 +75,42 @@
 				</c:forEach>
 			</c:if>
 
-			<h2>Hacer una reserva</h2>
-			<form action="ReserveServlet" method="post">
-				<input type="hidden" id="bookId" name="bookId"
-					value="${requestScope.book.id}"> <label for="startDate">Fecha
-					de Inicio:</label> <input type="date" id="startDate" name="startDate">
-				<label for="endDate">Fecha de Fin:</label> <input type="date"
-					id="endDate" name="endDate"> <input type="submit">
-
-			</form>
+			<c:if test="${sessionScope.username != null}">
+				<h2>Hacer una reserva</h2>
+				<form action="ReserveServlet" method="post">
+					<input type="hidden" id="bookId" name="bookId"
+						value="${requestScope.book.id}"> <label for="startDate">Fecha
+						de Inicio:</label> <input type="date" id="startDate" name="startDate">
+					<label for="endDate">Fecha de Fin:</label> <input type="date"
+						id="endDate" name="endDate"> <input type="submit">
+				</form>
+			</c:if>
 			<c:if test="${requestScope.loans != null&&requestScope.areLoans}">
-				<h1>Realizar un préstamo</h1>
+				<h1>Préstamos</h1>
 				<c:forEach items="${requestScope.loans}" var="loan">
 					<p>Fecha de Inicio:${loan.startDate}</p>
 					<p>Fecha de Fin:${loan.endDate}</p>
 				</c:forEach>
 			</c:if>
 
-			<h2>Realizar un préstamo</h2>
-			<form action="LoanServlet" method="post">
-				<input type="hidden" id="bookId" name="bookId"
-					value="${requestScope.book.id}">
-				<label for="endDate">Fecha de Fin:</label> <input type="date"
-					id="endDate" name="endDate"> <input type="submit">
+			<c:if test="${sessionScope.username != null}">
+				<h2>Realizar un préstamo</h2>
+				<form action="LoanServlet" method="post">
+					<input type="hidden" id="bookId" name="bookId"
+						value="${requestScope.book.id}"> <label for="endDate">Fecha
+						de Fin:</label> <input type="date" id="endDate" name="endDate"> <input
+						type="submit">
 
-			</form>
-
-			<form action="CommentServlet" method="post">
-				<input type="hidden" id="bookId" name="bookId"
-					value="${requestScope.book.id}">
-				<textarea name="text"></textarea>
-				<button type="submit">Enviar</button>
-			</form>
-
+				</form>
+			</c:if>
+			<c:if test="${sessionScope.username != null}">
+				<form action="CommentServlet" method="post">
+					<input type="hidden" id="bookId" name="bookId"
+						value="${requestScope.book.id}">
+					<textarea name="text"></textarea>
+					<button type="submit">Enviar</button>
+				</form>
+			</c:if>
 			<c:if
 				test="${requestScope.comments != null&&requestScope.areComments}">
 				<h1>Comentarios</h1>

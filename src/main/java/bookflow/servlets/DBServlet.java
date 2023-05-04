@@ -21,25 +21,16 @@ import bookflow.repository.DBRepository;
 public class DBServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		EntityManagerFactory emf = (EntityManagerFactory) getServletContext().getAttribute("emf");
 		EntityManager em = emf.createEntityManager();
 
-		HttpSession sesion = (HttpSession) req.getSession();
-		RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");
-
-		if (sesion.getAttribute("userId") != null) {
-			sesion.removeAttribute("userId");
-			sesion.removeAttribute("username");
+		if (request.getSession().getAttribute("userId") != null) {
+			request.getSession().removeAttribute("userId");
+			request.getSession().removeAttribute("username");
 		}
-			
 		DBRepository.populateDB(em);
 
-		rd.forward(req, resp);
-
-	}
-
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		doGet(req, resp);
+		response.sendRedirect("index.jsp");
 	}
 }
