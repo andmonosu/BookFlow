@@ -13,6 +13,11 @@
     </head>
     
     <body class="body">
+    <c:if test="${requestScope.mensaje != null}">
+     	<div class="alert alert-danger" role="alert">
+		 	${requestScope.mensaje}
+		</div>
+	</c:if>
     <c:if test="${requestScope.username_error != null}">
      	<div class="alert alert-danger" role="alert">
 		 	${requestScope.username_error}
