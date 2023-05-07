@@ -1,16 +1,12 @@
 package bookflow.repository;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import bookflow.models.Book;
 import bookflow.models.BookModel;
 import bookflow.models.Comment;
-import bookflow.models.Loan;
 import bookflow.models.User;
-import bookflow.util.State;
 
 public class CommentRepository {
 

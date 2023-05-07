@@ -1,10 +1,6 @@
 package bookflow.servlets;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Random;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.servlet.RequestDispatcher;
@@ -13,14 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bookflow.models.Book;
 import bookflow.models.BookModel;
-import bookflow.models.Comment;
 import bookflow.models.User;
 import bookflow.repository.BookModelRepository;
-import bookflow.repository.BookRepository;
 import bookflow.repository.CommentRepository;
-import bookflow.repository.LoanRepository;
 import bookflow.repository.UserRepository;
 
 public class CommentServlet extends HttpServlet {

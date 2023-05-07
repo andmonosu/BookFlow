@@ -2,7 +2,6 @@ package bookflow.servlets;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -16,13 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import bookflow.models.Book;
 import bookflow.models.BookModel;
-import bookflow.models.Loan;
-import bookflow.models.Reserve;
 import bookflow.models.User;
 import bookflow.repository.BookModelRepository;
 import bookflow.repository.BookRepository;
 import bookflow.repository.LoanRepository;
-import bookflow.repository.ReserveRepository;
 import bookflow.repository.UserRepository;
 
 /**

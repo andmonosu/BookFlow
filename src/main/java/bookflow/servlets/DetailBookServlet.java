@@ -1,7 +1,6 @@
 package bookflow.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bookflow.models.Book;
 import bookflow.models.BookModel;
 import bookflow.models.Comment;
 import bookflow.models.Loan;

@@ -1,15 +1,10 @@
 package bookflow.models;
 
 import java.io.Serializable;
-import java.util.List;
-
 import javax.jdo.annotations.Unique;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 public class User implements Serializable {
