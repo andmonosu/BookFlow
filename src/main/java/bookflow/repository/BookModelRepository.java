@@ -3,7 +3,6 @@ package bookflow.repository;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
-import bookflow.models.Book;
 import bookflow.models.BookModel;
 
 public class BookModelRepository {
@@ -22,7 +21,8 @@ public class BookModelRepository {
 	}
 	
 	public static BookModel getBookById(String id, EntityManager em){
-		BookModel res = em.createQuery("SELECT b FROM BookModel b WHERE b.id = :id",BookModel.class).setParameter("id", Integer.parseInt(id)).getSingleResult();
+		BookModel res = em.createQuery("SELECT b FROM BookModel b WHERE b.id = :id",BookModel.class)
+				.setParameter("id", Integer.parseInt(id)).getSingleResult();
 		return res;
 		
 	}

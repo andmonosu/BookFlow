@@ -6,10 +6,6 @@ import java.util.Map;
 import javax.persistence.*;
 import javax.servlet.*;
 
-/**
- * Application Lifecycle Listener implementation class UserListener
- *
- */
 
 public class BookFlowListener implements ServletContextListener {
 	@Override

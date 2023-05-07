@@ -1,9 +1,6 @@
 package bookflow.repository;
 
-import java.security.SecureRandom;
 import java.time.LocalDate;
-import java.util.Arrays;
-
 import javax.persistence.EntityManager;
 
 import bookflow.models.*;

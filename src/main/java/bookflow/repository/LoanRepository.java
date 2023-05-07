@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 
 import bookflow.models.Book;
 import bookflow.models.Loan;
-import bookflow.models.Reserve;
 import bookflow.models.User;
 import bookflow.util.State;
 

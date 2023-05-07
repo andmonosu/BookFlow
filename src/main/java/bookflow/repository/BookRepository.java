@@ -1,11 +1,8 @@
 package bookflow.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import bookflow.models.Book;
-import bookflow.models.BookModel;
-import bookflow.models.Loan;
 
 public class BookRepository {
 

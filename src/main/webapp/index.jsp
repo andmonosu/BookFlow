@@ -26,7 +26,7 @@
 				    <p>${sessionScope.username}</p>
 				</div>
 				<form id="populateForm" action="LogoutServlet" method="post">
-				      <button class="btn btn-outline-danger type="submit">Cerrar Sesión</button>
+				      <button class="btn btn-outline-danger" type="submit">Cerrar Sesión</button>
 				</form>
 				<form id="populateForm" action="DBServlet" method="post">
 		            	<button class="btn btn-secondary" id="id_searchBtn" type="submit" name="populateBtn">Poblar DB	

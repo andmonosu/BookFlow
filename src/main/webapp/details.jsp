@@ -9,9 +9,7 @@
 </style>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-	crossorigin="anonymous">
+	rel="stylesheet">
 <title>Bookflow</title>
 </head>
 
@@ -93,7 +91,7 @@
 				<c:if test="${requestScope.loans != null&&requestScope.areLoans}">
 					<h1>Préstamos</h1>
 					<c:forEach items="${requestScope.loans}" var="loan">
-						<p><b>Reserva de:</b> ${loan.user.username}</p>
+						<p><b>Préstamo a:</b> ${loan.user.username}</p>
 						<p><b>Ejemplar:</b> ${loan.reservedBook.numCopy}</p>
 						<p><b>Fecha de Inicio:</b> ${loan.startDate}</p>
 						<p><b>Fecha de Fin:</b> ${loan.endDate}</p>
